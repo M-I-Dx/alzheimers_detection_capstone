@@ -9,7 +9,30 @@ from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_sc
 
 
 class TransformerClassifier:
+    """
+    A classifier that uses a transformer model to extract text embeddings and trains a machine learning model on these embeddings.
+
+    Attributes:
+        csv_file (str): Path to the CSV file containing the dataset.
+        text_column (str): The column name in the CSV file containing the text data.
+        label_column (str): The column name in the CSV file containing the labels.
+        model_name (str): The name of the transformer model to use.
+        classifier_type (str): The type of classifier to use ('logistic_regression', 'svm', or 'random_forest').
+        model (AutoModel): The transformer model used for embedding extraction.
+        tokenizer (AutoTokenizer): The tokenizer used with the transformer model.
+        classifier: The machine learning classifier used for prediction.
+    """
     def __init__(self, csv_file, text_column, label_column, model_name="bert-base-uncased", classifier_type="logistic_regression"):
+        """
+        Initializes the TransformerClassifier with the given parameters.
+
+        Args:
+            csv_file (str): Path to the CSV file containing the dataset.
+            text_column (str): The column name in the CSV file containing the text data.
+            label_column (str): The column name in the CSV file containing the labels.
+            model_name (str): The name of the transformer model to use. Default is "bert-base-uncased".
+            classifier_type (str): The type of classifier to use ('logistic_regression', 'svm', or 'random_forest'). Default is "logistic_regression".
+        """
         self.csv_file = csv_file
         self.text_column = text_column
         self.label_column = label_column
@@ -20,22 +43,33 @@ class TransformerClassifier:
         self.classifier = None
 
     def load_data(self):
+        """
+        Loads the data from the CSV file and extracts the texts and labels into lists.
+        """
         data = pd.read_csv(self.csv_file)
         self.texts = data[self.text_column].tolist()
         self.labels = data[self.label_column].tolist()
 
     def preprocess_data(self):
+        """
+        Preprocesses the data by loading the transformer model and tokenizer, and tokenizing the text data.
+        """
         self.model = AutoModel.from_pretrained(self.model_name)
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
         self.input_sequences = self.tokenizer(self.texts, padding=True, truncation=True, return_tensors="pt")
 
     def extract_embeddings(self):
+        """
+        Extracts embeddings from the transformer model for the tokenized text data.
+        """
         with torch.no_grad():
             self.embeddings = self.model(self.input_sequences["input_ids"], attention_mask=self.input_sequences["attention_mask"])[0][:, 0, :]
 
     def train_classifier(self):
+        """
+        Trains the specified classifier on the extracted embeddings and evaluates it on a validation set.
+        """
         X_train, X_val, y_train, y_val = train_test_split(self.embeddings.numpy(), self.labels, test_size=0.3, random_state=42)
-
         if self.classifier_type == "logistic_regression":
             self.classifier = LogisticRegression(max_iter=500)
         elif self.classifier_type == "svm":
@@ -58,6 +92,15 @@ class TransformerClassifier:
         print(f"Validation Recall: {recall:.4f}")
 
     def predict(self, text):
+        """
+        Predicts the label for a given text using the trained classifier.
+
+        Args:
+            text (str): The input text to classify.
+
+        Returns:
+            The predicted label for the input text.
+        """
         input_sequence = self.tokenizer(text, padding=True, truncation=True, return_tensors="pt")
         with torch.no_grad():
             embedding = self.model(input_sequence["input_ids"], attention_mask=input_sequence["attention_mask"])[0][:, 0, :]
@@ -65,6 +108,9 @@ class TransformerClassifier:
         return prediction[0]
 
     def run(self):
+        """
+        Executes the complete pipeline: loading data, preprocessing, extracting embeddings, and training the classifier.
+        """
         self.load_data()
         self.preprocess_data()
         self.extract_embeddings()
