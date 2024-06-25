@@ -1,0 +1,1 @@
+To get access to the saved weights of the model, please contact the developers of the project at mandeepkhokhar110@gmail.com

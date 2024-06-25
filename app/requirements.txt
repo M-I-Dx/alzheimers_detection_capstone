@@ -1,0 +1,8 @@
+gradio
+whisper
+pandas
+numpy
+scikit-learn
+sentence-transformers==2.7.0
+bert-extractive-summarizer==0.10.1
+joblib
