@@ -152,10 +152,10 @@ class AlzheimerClassifierPredictor:
     """
 
     def __init__(self, use_summary=True):
-        self.vectorizer = joblib.load("./app/model/tfidf_vectorizer.pkl")
-        self.sum_model = joblib.load("./app/model/sum_model.pkl")
-        self.vectorizer_embed = joblib.load("./app/model/embed_vectorizer.pkl")
-        self.clf = joblib.load("./app/model/logistic_regression.pkl")
+        self.vectorizer = joblib.load("./model/tfidf_vectorizer.pkl")
+        self.sum_model = joblib.load("./model/sum_model.pkl")
+        self.vectorizer_embed = joblib.load("./model/embed_vectorizer.pkl")
+        self.clf = joblib.load("./model/logistic_regression.pkl")
         self.use_summary = use_summary
 
     def preprocess_text(self, text):
