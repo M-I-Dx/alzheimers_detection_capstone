@@ -1,9 +1,10 @@
 import gradio as gr
 import whisper
 import pandas as pd
+from model import AlzheimerClassifierPredictor
 
 
-MODEL = whisper.load_model("tiny.en")
+MODEL = whisper.load_model("medium.en")
 
 
 def transcribe_audios(audio_files):
@@ -19,7 +20,8 @@ def transcribe_audios(audio_files):
 def classifier(audio_files):
     transcripts = transcribe_audios(audio_files)
     filenames = [audio_file.split("/")[-1] for audio_file in audio_files]
-    predictions = ['ad' for _ in range(len(transcripts))]
+    predictor = AlzheimerClassifierPredictor()
+    predictions = predictor.predict(transcripts)
     predictions = pd.DataFrame({"Filename": filenames, "Transcript": transcripts, "Prediction": predictions})
     predictions.to_csv("transcriptions.csv", index=False)
     return predictions, "transcriptions.csv"
