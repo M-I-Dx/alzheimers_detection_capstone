@@ -35,6 +35,13 @@ In order to run our code, please follow the following instruction:
     - Original dataset:
         - `/src/hybrid/original/01_hybrid_original.ipynb`
     - Pitt dataset:
+        - If needed, please set the following fine-tuned hyper-parameters:
+          ```Python
+            # manually set best_params for consistency
+            best_params["max_feat"] = 10000
+            best_params["class_weights"] = "balanced"
+            best_params["ngram"] = (1, 2)
+          ```
         - `/src/hybrid/pitt/01_hybrid_pitt.ipynb`
 11. Evaluation code (for original dataset)
     - go to `/src/evaluation/` folder
