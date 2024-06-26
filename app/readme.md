@@ -45,8 +45,8 @@ Before you begin, ensure you have met the following requirements:
 
 1. **Clone the repository** or **download the zip file**:
    ```sh
-   git clone https://github.com/your-repo/alzheimers-classification-app.git
-   cd alzheimers-classification-app
+   git clone https://github.com/M-I-Dx/alzheimers-detection.git
+   cd alzheimers-detection/
    ```
  2. **Navigate to the project directory:**
      ```sh
