@@ -28,7 +28,11 @@ app/
 
 
 - `app/`: Main project directory.
-- `app/model/`: Contains the saved model files.
+- `app/model/`: Contains the saved model files. Please contact us for the pre-trained model files
+   - `embed_vectorizer.pkl`
+   - `logistic_regression.pkl`
+   - `sum_model.pkl` 
+   - `tfidf_vectorizer.pkl`
 - `app/app.py`: Main file to run the web application.
 - `app/model.py`: Contains the code for model computations and predictions.
 - `README.md`: This file.
