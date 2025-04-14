@@ -161,3 +161,8 @@ cython_debug/
 
 data/
 processed/
+
+app/model/*
+app/transcriptions.csv
+src/hybrid/pitt/Deployment.ipynb
+src/hybrid/pitt/01_hybrid_pitt.ipynb

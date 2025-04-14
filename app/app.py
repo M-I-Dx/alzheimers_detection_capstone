@@ -10,19 +10,23 @@ MODEL = whisper.load_model("medium.en")
 def transcribe_audios(audio_files):
     transcripts = []
     for audio_file in audio_files:
+        print("Transcribing audio file:", audio_file)
         if not (audio_file.endswith(".mp3") or audio_file.endswith(".wav")):
             return "Error: Only .mp3 and .wav files are supported."
         transcriptions = MODEL.transcribe(audio_file, language="en")
         transcripts.append(transcriptions["text"])
+    print("Transcription completed.")
     return transcripts
 
 
 def classifier(audio_files):
     transcripts = transcribe_audios(audio_files)
     filenames = [audio_file.split("/")[-1] for audio_file in audio_files]
+    print("Running predictions...")
     predictor = AlzheimerClassifierPredictor()
     predictions = predictor.predict(transcripts)
     predictions = pd.DataFrame({"Filename": filenames, "Transcript": transcripts, "Prediction": predictions})
+    print("Prediction Completed.")
     predictions.to_csv("transcriptions.csv", index=False)
     return predictions, "transcriptions.csv"
 
