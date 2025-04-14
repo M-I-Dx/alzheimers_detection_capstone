@@ -1,12 +1,33 @@
 # Please use Conda with Python==3.10
 # `conda create --name alzheimers python==3.10`
+# torch==2.6.0
+# transformers==4.51.2
+# sentence-transformers==2.7.0
+# bert-extractive-summarizer==0.10.1
+# gradio==5.25.0
+# pandas==2.2.3
+# numpy==2.2.4
+# scikit-learn==1.6.1
+# joblib==1.4.2
+# openai-whisper==20240930
+# ffmpeg==1.4
+
+# Colab version
+# Python 3.11.12 (main, Apr  9 2025, 08:55:54) [GCC 11.4.0]
+# SKlearn 1.6.1
+# Transformers 4.50.3
+# Torch 2.6.0+cu124
+# Numpy 2.0.2
+# Pandas 2.2.2
+# Joblib 1.4.2
+
 torch==2.6.0
-transformers==4.51.2
+transformers==4.50.3
 sentence-transformers==2.7.0
 bert-extractive-summarizer==0.10.1
 gradio==5.25.0
-pandas==2.2.3
-numpy==2.2.4
+pandas==2.2.2
+numpy==2.0.2
 scikit-learn==1.6.1
 joblib==1.4.2
 openai-whisper==20240930
